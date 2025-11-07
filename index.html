@@ -161,6 +161,12 @@
             font-size: 0.9em;
             border-left: 4px solid #ffc107;
         }
+        .video-loading {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            color: #666;
+        }
         
         footer {
             text-align: center;
@@ -197,23 +203,29 @@
         <!-- Paper Presentation Section -->
         <div class="paper-presentation">
             <h2>Featured Paper Presentation</h2>
+            
+            <div class="video-loading" id="videoLoading">
+                Loading video... Please wait
+            </div>
+            
             <div class="video-container">
                 <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23002147'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EPIELM Paper Presentation%3C/text%3E%3C/svg%3E">
                     <!-- Try MOV format first -->
-                    <source src="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" type="video/quicktime">
+                    <source src="https://raw.githubusercontent.com/ASL-DSAI/ASL-DSAI.github.io/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" type="video/quicktime">
                     <!-- Fallback to MP4 if MOV doesn't work -->
-                    <source src="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mp4" type="video/mp4">
+                    <source src="https://raw.githubusercontent.com/ASL-DSAI/ASL-DSAI.github.io/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mp4" type="video/mp4">
                     <!-- Fallback message -->
                     <div class="video-placeholder">
                         <div class="icon">📹</div>
                         <p>Your browser doesn't support the video tag or the video format.</p>
-                        <p><a href="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" style="color: white; text-decoration: underline;">Download the video instead</a></p>
+                        <p><a href="https://raw.githubusercontent.com/ASL-DSAI/ASL-DSAI.github.io/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" style="color: white; text-decoration: underline;">Download the MOV video</a></p>
+                        <p><a href="https://raw.githubusercontent.com/ASL-DSAI/ASL-DSAI.github.io/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mp4" style="color: white; text-decoration: underline;">Download the MP4 video</a></p>
                     </div>
                 </video>
             </div>
             
             <div class="video-format-notice">
-                <strong>Note:</strong> If the video doesn't play, try downloading it directly using the link above. MOV format videos may require QuickTime player on some devices.
+                <strong>Note:</strong> If the video doesn't play automatically, try downloading it directly using the links above. MOV format works best on Apple devices, while MP4 has broader compatibility.
             </div>
             
             <div class="research-platform">
@@ -282,22 +294,40 @@
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('video');
             const videoSources = video.querySelectorAll('source');
+            const videoLoading = document.getElementById('videoLoading');
             let currentSourceIndex = 0;
+            
+            // Show loading message when video starts loading
+            video.addEventListener('loadstart', function() {
+                videoLoading.style.display = 'block';
+            });
+            
+            // Hide loading message when video can play
+            video.addEventListener('canplay', function() {
+                videoLoading.style.display = 'none';
+            });
             
             // If first source fails, try the next one
             video.addEventListener('error', function() {
+                videoLoading.style.display = 'none';
+                
                 if (currentSourceIndex < videoSources.length - 1) {
                     currentSourceIndex++;
                     video.src = videoSources[currentSourceIndex].src;
                     video.load();
+                    videoLoading.style.display = 'block';
                 } else {
                     console.log('All video sources failed to load');
                 }
             }, true);
             
-            // Show custom message if video can't play
-            video.addEventListener('canplaythrough', function() {
-                console.log('Video can play through');
+            // Auto-play when video is ready (with user interaction)
+            document.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play().catch(e => {
+                        console.log('Auto-play prevented:', e);
+                    });
+                }
             });
         });
     </script>
