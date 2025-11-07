@@ -75,6 +75,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border-radius: 4px;
             overflow: hidden;
+            background: #002147;
         }
         .video-container video {
             position: absolute;
@@ -83,6 +84,24 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .video-placeholder .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
         }
         .paper-info {
             background: white;
@@ -134,6 +153,14 @@
         .research-platform a:hover {
             text-decoration: underline;
         }
+        .video-format-notice {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            border-left: 4px solid #ffc107;
+        }
         
         footer {
             text-align: center;
@@ -172,9 +199,21 @@
             <h2>Featured Paper Presentation</h2>
             <div class="video-container">
                 <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23002147'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EPIELM Paper Presentation%3C/text%3E%3C/svg%3E">
+                    <!-- Try MOV format first -->
+                    <source src="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" type="video/quicktime">
+                    <!-- Fallback to MP4 if MOV doesn't work -->
                     <source src="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
+                    <!-- Fallback message -->
+                    <div class="video-placeholder">
+                        <div class="icon">📹</div>
+                        <p>Your browser doesn't support the video tag or the video format.</p>
+                        <p><a href="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mov" style="color: white; text-decoration: underline;">Download the video instead</a></p>
+                    </div>
                 </video>
+            </div>
+            
+            <div class="video-format-notice">
+                <strong>Note:</strong> If the video doesn't play, try downloading it directly using the link above. MOV format videos may require QuickTime player on some devices.
             </div>
             
             <div class="research-platform">
@@ -237,5 +276,30 @@
     <footer>
         &copy; 2025 Autonomous Simulations Lab, IIT Madras. All rights reserved.
     </footer>
+
+    <script>
+        // JavaScript to handle video loading issues
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('video');
+            const videoSources = video.querySelectorAll('source');
+            let currentSourceIndex = 0;
+            
+            // If first source fails, try the next one
+            video.addEventListener('error', function() {
+                if (currentSourceIndex < videoSources.length - 1) {
+                    currentSourceIndex++;
+                    video.src = videoSources[currentSourceIndex].src;
+                    video.load();
+                } else {
+                    console.log('All video sources failed to load');
+                }
+            }, true);
+            
+            // Show custom message if video can't play
+            video.addEventListener('canplaythrough', function() {
+                console.log('Video can play through');
+            });
+        });
+    </script>
 </body>
 </html>
