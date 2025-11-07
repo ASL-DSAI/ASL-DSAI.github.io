@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Simulations Lab – Data Science &amp; AI, IIT Madras</title>
+    <title>Autonomous Simulations Lab – Data Science & AI, IIT Madras</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,7 +76,7 @@
             border-radius: 4px;
             overflow: hidden;
         }
-        .video-container iframe {
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -119,6 +119,21 @@
             padding-top: 15px;
             border-top: 1px dashed #ccc;
         }
+        .research-platform {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #4caf50;
+        }
+        .research-platform a {
+            color: #002147;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .research-platform a:hover {
+            text-decoration: underline;
+        }
         
         footer {
             text-align: center;
@@ -156,12 +171,14 @@
         <div class="paper-presentation">
             <h2>Featured Paper Presentation</h2>
             <div class="video-container">
-                <!-- Replace the YouTube video ID with your actual presentation video -->
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                        title="PIELM Paper Presentation" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
+                <video controls poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%23002147'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EPIELM Paper Presentation%3C/text%3E%3C/svg%3E">
+                    <source src="https://raw.githubusercontent.com/yourusername/yourrepository/main/assets/presentation_b8a3e179-eec1-41e3-bb7c-d896ca1047f2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="research-platform">
+                <p><strong>Video Generation Platform:</strong> This presentation was generated using <a href="http://saral.democratiseresearch.in" target="_blank">Saral - Democratise Research</a>, an innovative platform for creating research presentations.</p>
             </div>
             
             <div class="paper-info">
@@ -195,7 +212,6 @@
         <div class="section">
             <h2>Our Papers</h2>
             <ul>
-                <!-- Replace with actual lab papers -->
                 <li>Paper 1: [Title] — A study on automating simulation workflows using AI-augmented methods.</li>
                 <li>Paper 2: [Title] — Development of multi-agent simulation frameworks for autonomous navigation in complex environments.</li>
                 <li>Paper 3: [Title] — Data-driven modeling and verification of autonomous systems in high-fidelity simulation.</li>
@@ -205,7 +221,6 @@
         <div class="section">
             <h2>Our Projects</h2>
             <ul>
-                <!-- Replace with your lab's projects -->
                 <li>Project A: Autonomous navigation in cluttered indoor/outdoor environments — designing simulation architectures and control algorithms.</li>
                 <li>Project B: Multi-agent coordination and emergent behaviour modelling in simulated robotics ecosystems.</li>
                 <li>Project C: AI-assisted generation of simulation workflows — coupling numerical solvers with natural-language driven automation.</li>
